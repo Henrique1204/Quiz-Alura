@@ -6,21 +6,27 @@ const BackgroundHome = styled.div`
   background-size: cover;
   flex: 1;
   position: relative;
+`;
 
-  &:after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(rgba(0, 0, 0, 0), #000);
-    display: block;
-    position: absolute;
-    z-index: 0;
+const QuizContainer = styled.div`
+  width: 100%;
+  max-width: 350px;
+  padding-top: 45px;
+  margin: auto 10%;
+
+  @media (max-width: 500px) {
+    margin: auto;
+    padding: 15px;
   }
 `;
+
 
 export default function Home() {
   return (
     <BackgroundHome>
+      <QuizContainer>
+        deodkeok
+      </QuizContainer>
     </BackgroundHome>
   );
 }
