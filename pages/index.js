@@ -1,17 +1,11 @@
 import styled from "styled-components";
 // Importando componentes da interface.
 import Widget from "../src/Componentes/Widget";
+import QuizBackground from "../src/Componentes/QuizBackground";
 import Footer from "../src/Componentes/Footer";
 import GithubCorner from "../src/Componentes/GithubCorner";
 // Importando informações do projeto.
 import db from "../db.json";
-
-const BackgroundHome = styled.div`
-  background: url(${db.bg}) no-repeat center;
-  background-size: cover;
-  flex: 1;
-  position: relative;
-`;
 
 const QuizContainer = styled.div`
   width: 100%;
@@ -27,7 +21,7 @@ const QuizContainer = styled.div`
 
 export default function Home() {
   return (
-    <BackgroundHome>
+    <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
         <Widget>
           <Widget.Header>
@@ -48,7 +42,11 @@ export default function Home() {
             <p>Lorem impsum door set amet...</p>
           </Widget.Content>
         </Widget>
+
+        <Footer />
       </QuizContainer>
-    </BackgroundHome>
+
+      <GithubCorner />
+    </QuizBackground>
   );
 }
