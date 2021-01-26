@@ -1,5 +1,8 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import styled from 'styled-components';
+// Importando hooks do Next.
+import { useRouter } from 'next/router';
 // Importando componentes da interface.
 import Widget from '../src/Componentes/Widget';
 import QuizBackground from '../src/Componentes/QuizBackground';
@@ -22,6 +25,15 @@ const QuizContainer = styled.div`
 `;
 
 export default function Home() {
+  const [name, setName] = React.useState('');
+  const router = useRouter();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    router.push(`/quiz?name=${name}`);
+  };
+
   return (
     <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
@@ -33,7 +45,14 @@ export default function Home() {
           </Widget.Header>
 
           <Widget.Content>
-            <p>{db.description}</p>
+            <form onSubmit={handleSubmit}>
+              <input
+                placeholder="Digite o seu nome..."
+                value={name}
+                onChange={({ target }) => setName(target.value)}
+              />
+              <button type="submit" disabled={name.length === 0}>Jogar {name}</button>
+            </form>
           </Widget.Content>
         </Widget>
 
