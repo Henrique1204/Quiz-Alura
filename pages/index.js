@@ -2,6 +2,7 @@ import styled from "styled-components";
 // Importando componentes da interface.
 import Widget from "../src/Componentes/Widget";
 import QuizBackground from "../src/Componentes/QuizBackground";
+import QuizLogo from "../src/Componentes/QuizLogo";
 import Footer from "../src/Componentes/Footer";
 import GithubCorner from "../src/Componentes/GithubCorner";
 // Importando informações do projeto.
@@ -23,6 +24,8 @@ export default function Home() {
   return (
     <QuizBackground backgroundImage={db.bg}>
       <QuizContainer>
+        <QuizLogo />
+
         <Widget>
           <Widget.Header>
             <h1>{db.title}</h1>
@@ -46,7 +49,7 @@ export default function Home() {
         <Footer />
       </QuizContainer>
 
-      <GithubCorner />
+      <GithubCorner projectUrl="https://github.com/Henrique1204/Quiz-Alura" />
     </QuizBackground>
   );
 }
