@@ -4,9 +4,11 @@ import styled from 'styled-components';
 // Importando hooks do Next.
 import { useRouter } from 'next/router';
 // Importando componentes da interface.
-import Widget from '../src/Componentes/Widget';
 import QuizBackground from '../src/Componentes/QuizBackground';
 import QuizLogo from '../src/Componentes/QuizLogo';
+import Widget from '../src/Componentes/Widget';
+import Input from '../src/Componentes/Input';
+import Button from '../src/Componentes/Button';
 import Footer from '../src/Componentes/Footer';
 import GithubCorner from '../src/Componentes/GithubCorner';
 // Importando informações do projeto.
@@ -46,12 +48,13 @@ export default function Home() {
 
           <Widget.Content>
             <form onSubmit={handleSubmit}>
-              <input
-                placeholder="Digite o seu nome..."
+              <Input
+                name="name"
                 value={name}
                 onChange={({ target }) => setName(target.value)}
+                placeholder="Digite o seu nome..."
               />
-              <button type="submit" disabled={name.length === 0}>Jogar {name}</button>
+              <Button type="submit" disabled={name.length === 0}>Jogar {name}</Button>
             </form>
           </Widget.Content>
         </Widget>
