@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
-import styled from 'styled-components';
 // Importando hooks do Next.
 import { useRouter } from 'next/router';
 // Importando componentes da interface.
 import QuizBackground from '../src/Componentes/QuizBackground';
+import QuizContainer from '../src/Componentes/QuizContainer';
 import QuizLogo from '../src/Componentes/QuizLogo';
 import Widget from '../src/Componentes/Widget';
 import Input from '../src/Componentes/Input';
@@ -13,18 +13,6 @@ import Footer from '../src/Componentes/Footer';
 import GithubCorner from '../src/Componentes/GithubCorner';
 // Importando informações do projeto.
 import db from '../db.json';
-
-const QuizContainer = styled.div`
-  width: 100%;
-  max-width: 350px;
-  padding-top: 45px;
-  margin: auto 10%;
-
-  @media (max-width: 500px) {
-    margin: auto;
-    padding: 15px;
-  }
-`;
 
 export default function Home() {
   const [name, setName] = React.useState('');
