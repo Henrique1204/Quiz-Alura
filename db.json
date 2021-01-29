@@ -7,7 +7,7 @@
       "image": "https://media.giphy.com/media/xUOxf3yDKCuwpOlT3i/giphy.gif",
       "title": "Qual o tipo que tem vantagem contra planta?",
       "description": "Melhor tipo inicial",
-      "answer": 2,
+      "answer": 3,
       "alternatives": [
         "Terra",
         "Água",
@@ -19,7 +19,7 @@
       "image": "https://media.giphy.com/media/13FrpeVH09Zrb2/giphy.gif",
       "title": "Qual pokemon não é do tipo dragão?",
       "description": "O tipo mais forte",
-      "answer": 0,
+      "answer": 3,
       "alternatives": [
          "Dragonite",
          "Altaria",

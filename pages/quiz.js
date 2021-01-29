@@ -6,6 +6,7 @@ import Widget from '../src/Componentes/Widget';
 import QuizLogo from '../src/Componentes/QuizLogo';
 import QuizBackground from '../src/Componentes/QuizBackground';
 import QuizContainer from '../src/Componentes/QuizContainer';
+import AlternativesForm from '../src/Componentes/AlternativesForm';
 import Button from '../src/Componentes/Button';
 
 const Spinner = styled.div`
@@ -31,6 +32,21 @@ const Spinner = styled.div`
   }
 `;
 
+function ResultWidget({ result }) {
+  return (
+    <Widget>
+      <Widget.Header>
+        Tela de resultado
+      </Widget.Header>
+
+      <Widget.Content>
+        {/* eslint-disable-next-line react/jsx-one-expression-per-line */}
+        <p>Você acertou {result} perguntas</p>
+      </Widget.Content>
+    </Widget>
+  );
+}
+
 function LoadingWidget() {
   return (
     <Widget>
@@ -50,8 +66,14 @@ function QuestionWidget({
   questionIndex,
   totalQuestions,
   onSubmit,
+  setResult,
 }) {
+  const [selectedAlternative, setSelectedAlternative] = React.useState(undefined);
+  const [isQuestionsSubmited, setIsQuestionsSubmited] = React.useState(false);
   const questionId = `question__${questionIndex}`;
+  const isCorrect = selectedAlternative === question.answer;
+  const hasAlternativeSelected = selectedAlternative === undefined;
+
   return (
     <Widget>
       <Widget.Header>
@@ -77,23 +99,38 @@ function QuestionWidget({
           {question.description}
         </p>
 
-        <form
+        <AlternativesForm
           onSubmit={(infosDoEvento) => {
             infosDoEvento.preventDefault();
-            onSubmit();
+
+            setIsQuestionsSubmited(true);
+
+            setTimeout(() => {
+              onSubmit();
+              setResult((result) => ((isCorrect) ? result + 1 : result));
+              setSelectedAlternative(undefined);
+              setIsQuestionsSubmited(false);
+            }, 2000);
           }}
         >
           {question.alternatives.map((alternative, alternativeIndex) => {
             const alternativeId = `alternative__${alternativeIndex}`;
+            const alternativeStatus = (isCorrect) ? 'SUCCESS' : 'ERROR';
+            const isSelected = alternativeIndex === selectedAlternative;
+
             return (
               <Widget.Topic
                 as="label"
+                key={alternativeId}
                 htmlFor={alternativeId}
+                data-selected={isSelected}
+                data-status={isQuestionsSubmited && alternativeStatus}
               >
                 <input
-                  // style={{ display: 'none' }}
                   id={alternativeId}
                   name={questionId}
+                  onChange={() => setSelectedAlternative(alternativeIndex)}
+                  checked={isSelected}
                   type="radio"
                 />
                 {alternative}
@@ -101,10 +138,10 @@ function QuestionWidget({
             );
           })}
 
-          <Button type="submit">
+          <Button type="submit" disabled={isQuestionsSubmited || hasAlternativeSelected}>
             Confirmar
           </Button>
-        </form>
+        </AlternativesForm>
       </Widget.Content>
     </Widget>
   );
@@ -118,6 +155,7 @@ const screenStates = {
 
 export default function QuizPage() {
   const [screenState, setScreenState] = React.useState(screenStates.LOADING);
+  const [result, setResult] = React.useState(0);
   const totalQuestions = db.questions.length;
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
   const questionIndex = currentQuestion;
@@ -148,12 +186,13 @@ export default function QuizPage() {
             questionIndex={questionIndex}
             totalQuestions={totalQuestions}
             onSubmit={handleSubmitQuiz}
+            setResult={setResult}
           />
         )}
 
         {screenState === screenStates.LOADING && <LoadingWidget />}
 
-        {screenState === screenStates.RESULT && <div>Você acertou X questões, parabéns!</div>}
+        {screenState === screenStates.RESULT && <ResultWidget result={result} />}
       </QuizContainer>
     </QuizBackground>
   );
