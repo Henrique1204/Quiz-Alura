@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 /* eslint-disable react/prop-types */
 import React from 'react';
-import db from '../db.json';
-import Widget from '../src/Componentes/Widget';
-import QuizLogo from '../src/Componentes/QuizLogo';
-import QuizBackground from '../src/Componentes/QuizBackground';
-import QuizContainer from '../src/Componentes/QuizContainer';
-import AlternativesForm from '../src/Componentes/AlternativesForm';
-import Button from '../src/Componentes/Button';
+import Widget from '../../Componentes/Widget';
+import QuizLogo from '../../Componentes/QuizLogo';
+import QuizBackground from '../../Componentes/QuizBackground';
+import QuizContainer from '../../Componentes/QuizContainer';
+import AlternativesForm from '../../Componentes/AlternativesForm';
+import Button from '../../Componentes/Button';
+import BackArrowLink from '../../Componentes/BackArrowLink';
 
 const Spinner = styled.div`
   width: 100%;
@@ -78,6 +78,7 @@ function QuestionWidget({
     <Widget>
       <Widget.Header>
         <h3>
+          <BackArrowLink href="/" />
           {`Pergunta ${questionIndex + 1} de ${totalQuestions}`}
         </h3>
       </Widget.Header>
@@ -153,7 +154,7 @@ const screenStates = {
   RESULT: 'RESULT',
 };
 
-export default function QuizPage() {
+export default function QuizPage({ db }) {
   const [screenState, setScreenState] = React.useState(screenStates.LOADING);
   const [result, setResult] = React.useState(0);
   const totalQuestions = db.questions.length;
